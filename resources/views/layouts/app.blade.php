@@ -28,6 +28,7 @@
 
         <div class="links">
             <a href="{{ route('tasks.index') }}">Задачи</a>
+            <a href="{{ route('tasks.create') }}">Создать Задачу</a>
             <a href="{{ route('about') }}">about</a>
         </div>
         <div class="container mt-4">

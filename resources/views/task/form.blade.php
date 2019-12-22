@@ -1,3 +1,4 @@
+{{--вывод ошибок--}}
 @if ($errors->any())
     <div>
         <ul class="alert alert-danger">
@@ -11,11 +12,11 @@
 <div class="form-group">
     {{ Form::label('name', 'Название') }}
     {{ Form::text('name') }}
-</div>
+</div><br>
 <div class="form-group">
     {{ Form::label('description', 'Описание') }}
     {{ Form::textarea('description') }}
-</div>
+</div><br>
 <div class="form-group">
     {{ Form::label('notes', 'Заметки') }}
     {{ Form::textarea('notes') }}
