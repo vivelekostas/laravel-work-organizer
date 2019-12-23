@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Task;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TaskController extends Controller
 {
@@ -40,21 +43,13 @@ class TaskController extends Controller
     }
 
     /**
-     * Проверка и сохранение новой статьи.
-     * Здесь нам понадобится объект запроса для извлечения данных.
-     * @param \Illuminate\Http\Request $request
+     * Cохранение новой статьи.
+     * Здесь используется StoreTaskRequest - класс с валидацией для этого метода
+     * @param StoreTaskRequest $request
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
-        // Проверка введённых данных
-        // Если будут ошибки, то возникнет исключение
-        $this->validate($request, [
-            'name' => 'required|unique:tasks,name',
-            'description' => 'required',
-        ]);
-
         $article = new Task();
         // Заполнение статьи данными из формы (mass-assignment)
         $article->fill($request->all());
@@ -106,8 +101,13 @@ class TaskController extends Controller
             // У обновления немного измененная валидация. В проверку уникальности добавляется
             // название поля и id текущего объекта.
             // Если этого не сделать, Laravel будет ругаться на то что имя уже существует
-            'name' => 'required|unique:articles,name,' . $task->id,
-            'description' => 'required'
+//            'name' => 'required|unique:tasks,name,' . $task->id,
+            'name' => [
+                'required',
+                Rule::unique('tasks')->ignore($task->id),
+            ],
+            'description' => 'required',
+            'notes' => 'nullable',
         ]);
 
         $task->fill($request->all());
