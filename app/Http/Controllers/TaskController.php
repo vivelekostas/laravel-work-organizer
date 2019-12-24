@@ -6,7 +6,13 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Task;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Illuminate\Http\Response;
+
+/**
+ * Class TaskController
+ * Отвечает за CRUD сущности Task.
+ * @package App\Http\Controllers
+ */
 
 class TaskController extends Controller
 {
@@ -21,7 +27,7 @@ class TaskController extends Controller
      * Во 1ом значении про-ит фильтрация по слову, встречающемуся в названии задачи с учётом пагинации.
      * Во 2ом значении про-ит вывод всех задач по дате создания, начиная с новых.
      * q передаётся 2ым пар-ом, чтобы строка поиска не оставалась пустой после выполнения.
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -34,7 +40,7 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      * В ней создаётся пустой о.task для передачи в форму создания новой задачи.
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -44,9 +50,9 @@ class TaskController extends Controller
 
     /**
      * Cохранение новой статьи.
-     * Здесь используется StoreTaskRequest - класс с валидацией для этого метода
+     * Здесь используется StoreTaskRequest - класс с валидацией для этого метода.
      * @param StoreTaskRequest $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(StoreTaskRequest $request)
     {
@@ -67,8 +73,8 @@ class TaskController extends Controller
      * Laravel самостоятельно находит нужную сущность, достаёт
      * её из базы данных и передаёт в качестве параметра метод,
      * а затем в шаблон.
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
+     * @param Task $task
+     * @return Response
      */
     public function show(Task $task)
     {
@@ -78,8 +84,8 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
+     * @param Task $task
+     * @return Response
      */
     public function edit(Task $task)
     {
@@ -88,28 +94,15 @@ class TaskController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Task $task
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
+     * Валидация происходит до выполнения этого метода. А затем в полученный обновляемый
+     * объект присваиваиваются данные из формы. Потом сохранение и редирект с флешем.
+     * @param UpdateTaskRequest $request
+     * @param Task $task
+     * @return Response
      */
-    public function update(Request $request, Task $task)
+
+    public function update(UpdateTaskRequest $request, Task $task)
     {
-        $this->validate($request, [
-
-            // У обновления немного измененная валидация. В проверку уникальности добавляется
-            // название поля и id текущего объекта.
-            // Если этого не сделать, Laravel будет ругаться на то что имя уже существует
-//            'name' => 'required|unique:tasks,name,' . $task->id,
-            'name' => [
-                'required',
-                Rule::unique('tasks')->ignore($task->id),
-            ],
-            'description' => 'required',
-            'notes' => 'nullable',
-        ]);
-
         $task->fill($request->all());
         $task->save();
         \Session::flash('flash_message', 'Задача обновлена!');
@@ -120,8 +113,8 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      * $name извлекаю исключительно для флеша
-     * @param \App\Task $task
-     * @return \Illuminate\Http\Response
+     * @param Task $task
+     * @return Response
      * @throws \Exception
      */
     public function destroy(Task $task)
