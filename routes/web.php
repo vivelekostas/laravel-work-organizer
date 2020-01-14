@@ -32,5 +32,10 @@ Route::get('/', function () {
 
 Route::get('/about', 'PageController@about')->name('about');
 
+Route::get('/tasks/{id}/done', 'TaskController@done')->name('tasks.done');
 
 Route::resource('/tasks', 'TaskController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

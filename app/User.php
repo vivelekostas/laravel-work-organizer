@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -36,4 +37,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Название во множественном числе потому что это коллекция. Да и у одного автора
+     * может быть множество задач (один ко многим). Возвращает коллекцию задач, создан-
+     * ных этим автором. 2ой аргумент в hasMany должен быть указан.
+     * @return HasMany
+     */
+    public function tasks()
+    {
+        return $this->hasMany('App\Task', 'creator_id');
+    }
 }

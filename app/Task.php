@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Task extends Model
 {
@@ -12,4 +13,15 @@ class Task extends Model
      * @var array
      */
     protected $fillable = ['name', 'description', 'notes'];
+
+    /**
+     * Этот метод, как бы, сообщает нам, кто автор текущего поста:) belongsTo определяется у
+     * модели содержащей внешний ключ. Второй параметр можно не указывать, но я для удобства
+     * отмечу - это имя внешнего ключа, по которому строится связь.
+     * @return BelongsTo
+     */
+    public function creator()
+    {
+        return $this->belongsTo('App\User', 'creator_id');
+    }
 }
