@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -94,5 +95,12 @@
             @yield('content')
         </main>
     </div>
+
+    <footer class="footer modal-footer mt-auto py-3">
+        <div class="container">
+            <span class="text-muted">2020 год. Гребенюк Константин <a href="https://github.com/vivelekostas/laravel-work-organizer">GitHub</a></span>
+        </div>
+    </footer>
+
 </body>
 </html>
