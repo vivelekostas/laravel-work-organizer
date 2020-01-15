@@ -9,10 +9,21 @@
     сюда для формы передаётся пустой О. этой сущности и методом POST отправляется на
     маршрут POST /tasks, который обработает форму методом store.
     --}}
-    {{ Form::model($task, ['url' => route('tasks.store')]) }}
-    {{--подключение общей части формы--}}
-    @include('task.form')
-    {{ Form::submit('Создать') }}
-    {{ Form::close() }}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body border rounded rounded-lg" style="background-color: whitesmoke ">
 
+                        {{ Form::model($task, ['url' => route('tasks.store'), "class" => "form-horizontal"]) }}
+                        {{--подключение общей части формы--}}
+                        @include('task.form')
+                        {{ Form::submit('Создать', ["class" => "btn btn-secondary"]) }}
+                        {{ Form::close() }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

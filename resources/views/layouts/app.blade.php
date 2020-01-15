@@ -34,10 +34,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('tasks.index') }}">Задачи</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('tasks.create') }}">Создать Задачу</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="true" aria-expanded="false">Задачи</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ route('tasks.index') }}">Список Всех Здач</a>
+                                <a class="dropdown-item" href="#">Список Актуальных Задач</a>
+                                <a class="dropdown-item" href="#">Список Готовых Задач</a>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('about') }}">about</a>
