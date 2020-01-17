@@ -43,7 +43,7 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ route('tasks.index') }}">Список Всех Здач</a>
                                 <a class="dropdown-item" href="{{ route('tasks.actual') }}">Список Актуальных Задач</a>
-                                <a class="dropdown-item" href="#">Список Готовых Задач</a>
+                                <a class="dropdown-item" href="{{ route('tasks.ready') }}">Список Готовых Задач</a>
                             </div>
                         </li>
                         <li class="nav-item">

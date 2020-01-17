@@ -58,6 +58,13 @@ class TaskController extends Controller
         return view('task.actual', compact('actual'));
     }
 
+    public function ready()
+    {
+        $id = Auth::id();
+        $ready = Task::where('status', 'done')->where('creator_id', "{$id}")->get();
+        return view('task.ready', compact('ready'));
+    }
+
     /**
      * Show the form for creating a new resource.
      * В ней создаётся пустой о.task для передачи в форму создания новой задачи.

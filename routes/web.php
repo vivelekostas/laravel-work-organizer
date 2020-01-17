@@ -36,6 +36,8 @@ Route::get('/tasks/{id}/done', 'TaskController@done')->name('tasks.done');
 
 Route::get('/tasks/actual', 'TaskController@actual')->name('tasks.actual');
 
+Route::get('/tasks/ready', 'TaskController@ready')->name('tasks.ready');
+
 Route::resource('/tasks', 'TaskController');
 
 Auth::routes();
