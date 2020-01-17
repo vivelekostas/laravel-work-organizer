@@ -26,16 +26,16 @@
         {{-- Str::limit – функция-хелпер, которая обрезает текст до указанной длины
         Используется для очень длинных текстов, которые нужно сократить --}}
         <div>{{Str::limit($task->description, 50)}}<br>
-            <a href="{{ route('tasks.edit', $task->id) }}"><i>(edit)</i></a>
-            /
+{{--            <a href="{{ route('tasks.edit', $task->id) }}"><i>(edit)</i></a>--}}
+{{--            /--}}
             {{-- Тут приминение билб-ки jquery-ujs, она проанализирует все ссылки с нужными
             дата-атрибутами и превратит их в формы отправляющие указанные запросы. Позволяет
             не писать форму для простого действия, засоряя шаблон --}}
-            <a href="{{ route('tasks.done', $task) }}"
-               data-method="get"
-               rel="nofollow">Готово</a>
+{{--            <a href="{{ route('tasks.done', $task) }}"--}}
+{{--               data-method="get"--}}
+{{--               rel="nofollow">Готово</a>--}}
 {{--            {{dd(route('done', $task))}}--}}
-            /
+{{--            /--}}
             <a href="{{ route('tasks.destroy', $task->id) }}"
                data-confirm="Вы уверены, что хотите удалить эту задачу?"
                data-method="delete"

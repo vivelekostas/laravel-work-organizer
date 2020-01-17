@@ -5,8 +5,11 @@
  */
 
 require('./bootstrap');
+require('jquery-ujs');
+window.$ = window.jQuery = require('jquery');
 
 window.Vue = require('vue');
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -31,5 +34,5 @@ const app = new Vue({
     el: '#app',
 });
 
-window.$ = window.jQuery = require('jquery');
-require('jquery-ujs');
+
+

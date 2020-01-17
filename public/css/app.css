@@ -13,6 +13,12 @@ body {
     background-color: lightgray;
 }
 
+.myContent {
+    font-size: 1.3rem;
+}
+
+
+
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
 /*!

@@ -51,6 +51,13 @@ class TaskController extends Controller
         return view('task.index', compact('tasks', 'q'));
     }
 
+    public function actual()
+    {
+        $id = Auth::id();
+        $actual = Task::where('status', 'active')->where('creator_id', "{$id}")->get();
+        return view('task.actual', compact('actual'));
+    }
+
     /**
      * Show the form for creating a new resource.
      * В ней создаётся пустой о.task для передачи в форму создания новой задачи.
@@ -78,7 +85,7 @@ class TaskController extends Controller
 
         \Session::flash('flash_message', 'Создана новая задача!');
         return redirect()
-            ->route('tasks.index');
+            ->route('tasks.actual');
     }
 
     /**
@@ -121,7 +128,7 @@ class TaskController extends Controller
 
         \Session::flash('flash_message', 'Задача обновлена!');
         return redirect()
-            ->route('tasks.index');
+            ->route('tasks.show', $task);
     }
 
     public function done($id)
@@ -135,7 +142,7 @@ class TaskController extends Controller
         $name = $task->name;
 
         \Session::flash('flash_message', 'Задача "' . $name . '" выполнена!');
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.actual');
     }
 
     /**
@@ -145,12 +152,15 @@ class TaskController extends Controller
      * @return Response
      * @throws \Exception
      */
+
     public function destroy(Task $task)
     {
+        echo 'Miu!';
+        dd($task->toArray());
         $name = $task->name;
         $task->delete();
 
         \Session::flash('flash_message', 'Задача "' . $name . '" удалена успешно!');
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.actual');
     }
 }
