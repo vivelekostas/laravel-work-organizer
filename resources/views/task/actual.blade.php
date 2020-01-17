@@ -5,7 +5,15 @@
 @section('header', 'Задачи')
 
 @section('content')
-    <h3>Рабочие задачи</h3>
+    <div class="row">
+        <p class="h4 col-sm">Рабочие задачи</p>
+        <div class="text-right col-sm">
+            {{ Form::open(['url' => route('tasks.actual'), 'method' => 'GET']) }}
+            {{ Form::text('find', $find ?? '') }}
+            {{ Form::submit('Найти!') }}
+            {{ Form::close() }}
+        </div>
+    </div>
     <table class="table table-hover">
         <thead>
         <tr>

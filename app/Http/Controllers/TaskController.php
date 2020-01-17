@@ -51,10 +51,12 @@ class TaskController extends Controller
         return view('task.index', compact('tasks', 'q'));
     }
 
-    public function actual()
+    public function actual(Request $request)
     {
+        $find = $request->input('find'); // Извлекает значение по указанному ключу (если есть).
         $id = Auth::id();
-        $actual = Task::where('status', 'active')->where('creator_id', "{$id}")->get();
+        $actual = $find ? Task::where('name', 'like', "%{$find}%")->where('creator_id', "{$id}")->get() :
+            Task::where('status', 'active')->where('creator_id', "{$id}")->get();
         return view('task.actual', compact('actual'));
     }
 
