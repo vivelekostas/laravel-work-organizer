@@ -55,16 +55,16 @@ class TaskController extends Controller
     {
         $find = $request->input('find'); // Извлекает значение по указанному ключу (если есть).
         $id = Auth::id();
-        $actual = $find ? Task::where('name', 'like', "%{$find}%")->where('creator_id', "{$id}")->get() :
-            Task::where('status', 'active')->where('creator_id', "{$id}")->get();
-        return view('task.actual', compact('actual'));
+        $tasks = $find ? Task::where('name', 'like', "%{$find}%")->where('creator_id', "{$id}")->get() :
+        $tasks = Task::where('status', 'active')->where('creator_id', "{$id}")->get();
+        return view('task.actual', compact('tasks'));
     }
 
     public function ready()
     {
         $id = Auth::id();
-        $ready = Task::where('status', 'done')->where('creator_id', "{$id}")->get();
-        return view('task.ready', compact('ready'));
+        $tasks = Task::where('status', 'done')->where('creator_id', "{$id}")->get();
+        return view('task.ready', compact('tasks'));
     }
 
     /**

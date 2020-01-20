@@ -5,32 +5,27 @@
 @section('header', 'Задачи')
 
 @section('content')
-    <h3>Готовые задачи</h3>
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Название</th>
-            <th scope="col">Описание</th>
-            <th scope="col">Заметки</th>
-            <th scope="col">Дата создания</th>
-            <th scope="col">Дата завершения</th>
-        </tr>
-        </thead>
-        <tbody>
-        {{--перебор коллекции--}}
-        <?php $count = 1 ?>
-        @foreach($ready as $task)
+    <div class="row">
+        <p class="h4 col-sm">Готовые задачи</p>
+        <div class="text-right col-sm">
+            {{ Form::open(['url' => route('tasks.actual'), 'method' => 'GET']) }}
+            {{ Form::text('find', $find ?? '') }}
+            {{ Form::submit('Найти!') }}
+            {{ Form::close() }}
+        </div>
+        <table class="table table-hover">
+            <thead>
             <tr>
-                <th scope="row">{{$count ++}}</th>
-                <td><a href="{{ route('tasks.show', $task) }}"><h5>{{$task->name}}</h5></a></td>
-                <td>{{Str::limit($task->description, 35)}}</td>
-                <td>{{Str::limit($task->notes, 35)}}</td>
-                <td>{{$task->created_at}}</td>
-                <td>{{$task->updated_at}}</td>
+                <th scope="col">#</th>
+                <th scope="col">Название</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Заметки</th>
+                <th scope="col">Дата создания</th>
+                <th scope="col">Дата завершения</th>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </thead>
+            @include('task.table')
+        </table>
+    </div>
 @endsection
 
