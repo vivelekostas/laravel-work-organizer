@@ -21,20 +21,24 @@
                 <dt class="col-sm-2">Редактирование:</dt>
                 <dd class="col-sm-9">
                     <div class="row">
-                    <a class="btn btn-primary col-sm-1" href="{{ route('tasks.edit', $task->id) }}" role="button">Edit</a>
+                        <a class="btn btn-primary col-sm-1 mx-sm-3" href="{{ route('tasks.edit', $task->id) }}"
+                           role="button">Edit</a>
 
-                    <a class="btn btn-success col-sm-1" href="{{ route('tasks.done', $task) }}"
-                       data-method="get"
-                       rel="nofollow" role="button">Готово</a>
+                        <a class="btn btn-success col-sm-1" href="{{ route('tasks.done', $task) }}"
+                           data-method="get"
+                           rel="nofollow" role="button">Готово</a>
 
-{{--                    <a class="btn btn-danger pull-right" href="{{ route('tasks.destroy', $task) }}"--}}
-{{--                       data-confirm="Вы уверены, что хотите удалить эту задачу?"--}}
-{{--                       data-method="delete"--}}
-{{--                       rel="nofollow" role="button">Удалить</a>--}}
+                        {{--временно не работающая по неизвестным причинам кнопка-сылка на удаление зависящая от
+                            js библиотеки--}}
+                        {{--<a class="btn btn-danger pull-right" href="{{ route('tasks.destroy', $task) }}"--}}
+                        {{--data-confirm="Вы уверены, что хотите удалить эту задачу?"--}}
+                        {{--data-method="delete"--}}
+                        {{--rel="nofollow" role="button">Удалить</a>--}}
+
                         <div class="col-sm-1">
-                    {{ Form::model($task, ['url' => route('tasks.destroy', $task), 'method' => 'DELETE']) }}
-                    {{ Form::submit('Delete Nah!!', ["class" => "btn btn-danger"]) }}
-                    {{ Form::close() }}
+                            {{ Form::model($task, ['url' => route('tasks.destroy', $task), 'method' => 'DELETE']) }}
+                            {{ Form::submit('Удалить!', ["class" => "btn btn-danger"]) }}
+                            {{ Form::close() }}
                         </div>
                     </div>
                 </dd>

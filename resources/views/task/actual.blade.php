@@ -7,10 +7,9 @@
 @section('content')
     <div class="row">
         <p class="h4 col-sm">Рабочие задачи</p>
-        <div class="text-right col-sm">
-            {{ Form::open(['url' => route('tasks.actual'), 'method' => 'GET']) }}
-            {{ Form::text('find', $find ?? '',  ["placeholder" => "Название"]) }}
-            {{ Form::submit('Найти!') }}
+        <div>
+            {{ Form::open(['url' => route('tasks.actual'), "class" => "form-inline", 'method' => 'GET']) }}
+            @include('task.searchForm')
             {{ Form::close() }}
         </div>
         <table class="table table-hover">
@@ -26,6 +25,10 @@
             </thead>
             @include('task.table')
         </table>
+        <div>
+            {{-- красивый вывод пейджинга --}}
+            {{ $tasks->links() }}
+        </div>
     </div>
 @endsection
 

@@ -7,12 +7,12 @@
 @section('content')
     <div class="row">
         <p class="h4 col-sm">Готовые задачи</p>
-        <div class="text-right col-sm">
-            {{ Form::open(['url' => route('tasks.actual'), 'method' => 'GET']) }}
-            {{ Form::text('find', $find ?? '') }}
-            {{ Form::submit('Найти!') }}
-            {{ Form::close() }}
+        <div>
+            {{ Form::open(['url' => route('tasks.ready'), "class" => "form-inline", 'method' => 'GET']) }}
+            @include('task.searchForm')
+            {{ Form::close()}}
         </div>
+
         <table class="table table-hover">
             <thead>
             <tr>

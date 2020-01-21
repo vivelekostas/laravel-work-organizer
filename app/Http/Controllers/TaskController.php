@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Task;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 /**
  * Class TaskController
@@ -51,20 +53,50 @@ class TaskController extends Controller
         return view('task.index', compact('tasks', 'q'));
     }
 
+    /**
+     * Отображает таблицу с рабочими задачами и поисковой формой с учётом пейджинга.
+     * В $tasks записывается либо результат работы поиска, либо просто вывод табли-
+     * цы со всеми задачами.
+     * @param Request $request
+     * @return Factory|View
+     */
     public function actual(Request $request)
     {
         $find = $request->input('find'); // Извлекает значение по указанному ключу (если есть).
         $id = Auth::id();
-        $tasks = $find ? Task::where('name', 'like', "%{$find}%")->where('creator_id', "{$id}")->get() :
-        $tasks = Task::where('status', 'active')->where('creator_id', "{$id}")->get();
-        return view('task.actual', compact('tasks'));
+        $tasks = $find ? Task::where('name', 'like', "%{$find}%")
+            ->where('status', 'active')
+            ->where('creator_id', "{$id}")
+            ->orderBy('created_at', 'desc')
+            ->paginate(8) :
+            Task::where('status', 'active')
+                ->where('creator_id', "{$id}")
+                ->orderBy('created_at', 'desc')
+                ->paginate(8);
+        return view('task.actual', compact('tasks', 'find'));
     }
 
-    public function ready()
+    /**
+     * Отображает таблицу с готовыми задачами и поисковой формой с учётом пейджинга.
+     * В $tasks записывается либо результат работы поиска, либо просто вывод табли-
+     * цы со всеми задачами.
+     * @param Request $request
+     * @return Factory|View
+     */
+    public function ready(Request $request)
     {
+        $find = $request->input('find'); // Извлекает значение по указанному ключу (если есть).
         $id = Auth::id();
-        $tasks = Task::where('status', 'done')->where('creator_id', "{$id}")->get();
-        return view('task.ready', compact('tasks'));
+        $tasks = $find ? Task::where('name', 'like', "%{$find}%")
+            ->where('status', 'done')
+            ->where('creator_id', "{$id}")
+            ->orderBy('created_at', 'desc')
+            ->paginate(8) :
+            Task::where('status', 'done')
+                ->where('creator_id', "{$id}")
+                ->orderBy('created_at', 'desc')
+                ->paginate(8);
+        return view('task.ready', compact('tasks', 'find'));
     }
 
     /**
