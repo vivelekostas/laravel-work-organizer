@@ -26,6 +26,10 @@
             </thead>
             @include('task.table')
         </table>
+        <div>
+            {{-- красивый вывод пейджинга --}}
+            {{ $tasks->links() }}
+        </div>
     </div>
 @endsection
 

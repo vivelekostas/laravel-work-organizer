@@ -18,7 +18,7 @@
                         {{ Form::model($task, ['url' => route('tasks.store'), "class" => "form-horizontal"]) }}
                         {{--подключение общей части формы--}}
                         @include('task.form')
-                        {{ Form::submit('Создать', ["class" => "btn btn-secondary"]) }}
+                        {{ Form::submit('Создать', ["class" => "btn btn-secondary", "data-toggle" => "tooltip", "data-placement" => "left", "title" => "Создать задачу"]) }}
                         {{ Form::close() }}
 
                     </div>
