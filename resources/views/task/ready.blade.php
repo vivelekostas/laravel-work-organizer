@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-@section('title', '- Задачи')
-
-@section('header', 'Задачи')
+@section('title', 'Готовые Задачи')
 
 @section('content')
     <div class="row">

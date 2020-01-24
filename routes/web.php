@@ -26,9 +26,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.app');
-});
+Route::get('/', 'PageController@welcome')->name('welcome');
 
 Route::get('/about', 'PageController@about')->name('about');
 

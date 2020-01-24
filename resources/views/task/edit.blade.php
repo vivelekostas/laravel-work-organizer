@@ -2,10 +2,6 @@
 
 @section('title', 'Обновление')
 
-@section('header')
-    Обновление Задачи "{{$task->name}}"
-@endsection
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -19,6 +15,7 @@
                         @include('task.form')
                         {{ Form::submit('Обновить', ["class" => "btn btn-secondary"]) }}
                         {{ Form::close() }}
+
                     </div>
                 </div>
             </div>

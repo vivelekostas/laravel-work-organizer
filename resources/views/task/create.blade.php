@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Create Task')
-
-@section('header', 'Новая задача')
+@section('title', 'Создать Задачу')
 
 @section('content')
     {{--

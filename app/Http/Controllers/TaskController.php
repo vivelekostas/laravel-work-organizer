@@ -31,29 +31,6 @@ class TaskController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * Возвращает список всех задач текущего юзера с учётом пейджинга. Если же сюда приходит поисковая (посик задачи по названию)
-     * форма, то из неё ($request) извлекаются данные, и задачи извлекаются уже с определённой фильтрацией - согласно запросу.
-     * Like оказывает огромное влияние на производительность. Используйте их осторожно. Изучите индексы
-     * и полнотекстовый поиск.
-     * Если $q - true (т.е НЕ пустое), то присв-ется 1ое значение, а еси false (null/пустое) то 2ое.
-     * Во 1ом значении про-ит фильтрация по текущему юзеру и по слову, встречающемуся в названии задачи с учётом пагинации.
-     * Во 2ом значении про-ит вывод всех задач по текущему юзеру и по дате создания, начиная с новых.
-     * q передаётся 2ым пар-ом, чтобы строка поиска не оставалась пустой после выполнения.
-     * @return Response
-     */
-    public function index(Request $request)
-    {
-        $q = $request->input('q'); // Извлекает значение по указанному ключу (если есть).
-        $id = Auth::id();
-
-        $tasks = $q ? Task::where('name', 'like', "%{$q}%")->where('creator_id', "{$id}")->paginate(3) :
-            Task::where('creator_id', "{$id}")->orderBy('created_at', 'desc')->paginate(3);
-
-        return view('task.index', compact('tasks', 'q'));
-    }
-
-    /**
      * Отображает таблицу с рабочими задачами и поисковой формой с учётом пейджинга.
      * В $tasks записывается либо результат работы поиска, либо просто вывод табли-
      * цы со всеми задачами.
@@ -111,7 +88,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Cохранение новой статьи.
+     * Cохранение новой задачи.
      * Здесь используется StoreTaskRequest - класс с валидацией для этого метода.
      * Через фасад Auth получаю текущего юзера, далее магия Eloquent: из юзера вы-
      * зываю задачи как метод->создаю новую задачу->записываю в неё данные из фор-
@@ -125,8 +102,7 @@ class TaskController extends Controller
         $task = $user->tasks()->make()->fill($request->all())->save();
 
         \Session::flash('flash_message', 'Создана новая задача!');
-        return redirect()
-            ->route('tasks.actual');
+        return redirect()->route('tasks.actual');
     }
 
     /**
@@ -168,18 +144,14 @@ class TaskController extends Controller
         $task->save();
 
         \Session::flash('flash_message', 'Задача обновлена!');
-        return redirect()
-            ->route('tasks.show', $task);
+        return redirect()->route('tasks.show', $task);
     }
 
     public function done($id)
     {
-//        dd($id);
         $task = Task::FindOrFail($id);
-//        dump($task);
         $task->status = 'done';
         $task->save();
-//        dd($task);
         $name = $task->name;
 
         \Session::flash('flash_message', 'Задача "' . $name . '" выполнена!');
@@ -193,7 +165,6 @@ class TaskController extends Controller
      * @return Response
      * @throws \Exception
      */
-
     public function destroy(Task $task)
     {
         echo 'Miu!';

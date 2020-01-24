@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 <!-- Секция, содержимое которой обычный текст. -->
-@section('title', '- about')
-
-@section('header', 'О Блоге')
+@section('title', 'About')
 
 <!-- Секция, содержащая HTML блок. Имеет открывающую и закрывающую часть. -->
 @section('content')

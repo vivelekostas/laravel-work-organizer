@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $task->id)
-
-{{--@section('header', 'Статьи')--}}
+@section('title', $task->name)
 
 @section('content')
     <div class="myContent">
