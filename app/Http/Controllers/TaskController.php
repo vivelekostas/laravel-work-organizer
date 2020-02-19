@@ -167,8 +167,6 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        echo 'Miu!';
-        dd($task->toArray());
         $name = $task->name;
         $task->delete();
 
